@@ -50,6 +50,22 @@ public class Magpie {
         } else if(statement.indexOf("I want")>= 0) {
             transformIWantStatement(statement);
         }
+        else if(statement.indexOf("I want to")>= 0){
+            transformIWantToStatement(statement);
+        }
+        else if(findWord(statement, "I") >= 0 && findWord(statement, "you") >= 0){
+            transformIYouStatement(statement);
+        }
+        else if(findWord(statement, "you") >= 0 && findWord(statement, "me") >= 0){
+            transformYouMeStatement(statement);
+        }
+        else if(statement.indexOf("My favorite football team is")>= 0){
+            favfootballteam(statement);
+        }
+        else if(statement.indexOf("Politics")>= 0 ){
+            System.out.println("What are you political affiliations? I personally am a fan of Gary Johnson.");
+        }
+
          else {
             response = getRandomResponse();
         }
@@ -96,6 +112,7 @@ public class Magpie {
     // if it is found, and returns -1 otherwise. 
     public int findWord(String str, String word) {
         String x = str.toLowerCase();
+        word = word.toLowerCase();
         if (x.indexOf(word + " ")>= 0||x.indexOf(" "+word)>= 0|| x.indexOf(" "+word+" ")>= 0){
             return x.indexOf(word);
         }
@@ -137,10 +154,19 @@ public class Magpie {
      * @param statement the user statement, assumed to contain "I" followed by "you"
      * @return the transformed statement
      */
-    public String transformIYouStatement(String statement)
-    {
-        //your code here
-        return "";
+    public String transformIYouStatement(String statement) {
+        String final_final = "";
+        if (findWord(statement, "I") >= 0 && findWord(statement, "you") >= 0) ;
+        {
+            int x = findWord(statement, "I") + 2;
+            int y = findWord(statement, "you");
+            String temp = statement.substring(x, y);
+            String final_string = temp.trim();
+            final_final = ("Why do you " + final_string + " me?");
+        }
+        System.out.println(final_final);
+        return final_final;
+
     }
 
     /**
@@ -151,8 +177,15 @@ public class Magpie {
      */
     public String transformIWantToStatement(String statement)
     {
-        // your code here
-        return "";
+        String final_final = " ";
+        if(statement.indexOf("I want to")>= 0){
+            int x = statement.indexOf("I want to") + 9;
+            String temp = statement.substring(x);
+            String final_string = temp.trim();
+            final_final = ("What would it mean to " +final_string +"?");
+        }
+        System.out.println(final_final);
+        return final_final;
     }
 
 
@@ -166,7 +199,29 @@ public class Magpie {
      */
     public String transformYouMeStatement(String statement)
     {
-        // your code here
-        return "";
+        String final_final = "";
+        if (findWord(statement, "you") >= 0 && findWord(statement, "me") >= 0)
+        {
+            int x = findWord(statement, "you") + 4;
+            int y = findWord(statement, "me");
+            String temp = statement.substring(x, y);
+//            System.out.println(x);
+//            System.out.println(temp);
+            String final_string = temp.trim();
+            final_final = ("What makes you think that I " + final_string + " you?");
+        }
+        System.out.println(final_final);
+        return final_final;
+    }
+    public String favfootballteam(String statement){
+        String final_final = "";
+        if(statement.indexOf("My favorite football team is")>= 0){
+            int x = findWord(statement, "My") + 28;
+            String temp = statement.substring(x);
+            String final_string = temp.trim();
+            final_final = ("The fact that you support " + final_string +" has made me lose all respect for you.");
+        }
+        System.out.println(final_final);
+        return final_final;
     }
 }
